@@ -2,6 +2,14 @@
 Pieza::Pieza(){
 	
 }
+Pieza::Pieza(bool b,bool v,bool f){
+	this->color=b;
+	this->reina=v;
+	this->nada=f;
+}
+Pieza::Pieza(bool v){
+	this->color=v;
+}
 Pieza::Pieza(bool c, bool r){
 	this->color=c;
 	this->reina=r;
@@ -28,21 +36,21 @@ string Pieza::toString(){
 	if(nada==true){
 		return"-";
 	}
-if(nada==false){
-			if(color==false){
+
+			if(color==false&&nada==false){
 				return "X";
 			}
 				
-			if(color==true){
+			if(color==true&&nada==false){
 				return "0";
 			}
-			if(color==false &&reina==true){
+			if(color==false &&reina==true&&nada==false){
 				return "RX";
 			}
-			if(color==true &&reina==true){
+			if(color==true &&reina==true&&nada==false){
 				return "RO";	
 			}
-	}
+
 
 	
 }

@@ -11,6 +11,8 @@ class Pieza{
 
     public:
 	Pieza();
+	Pieza(bool,bool,bool);
+	Pieza(bool);
 	Pieza(bool,bool);
 	bool getNada();
 	void setNada(bool);
@@ -18,6 +20,7 @@ class Pieza{
 	void setColor(bool);
 	bool getReina();
 	void setReina(bool);
+	
 	string toString();
 	
 

@@ -23,20 +23,30 @@ Casillas*** Damas::crear(int filas,int columnas){
 }
 void Damas::llenar(int filas,int columnas,Casillas* c){
 	//0,1 / 0,3 /0,5/0,7/1,0/1,2/1,4/1,6/3,1/3,3/3,5/3,7
+		
 		cout<<"lleno"<<endl;
 		Casillas *casi=new Casillas();
 		Casillas *casi2=new Casillas();
 		Pieza *p=new Pieza();
 		Pieza *p2=new Pieza();
-		p->setNada(false);
+		p->setNada(true);
 		p->setColor(true);
 		casi->setPieza(p);
 		
 		for(int i=0;i<filas;i++){
 			for(int j=0;j<columnas;j++){
-				this->matriz[i][j]=new Casillas(p);
+				this->matriz[i][j]=casi;
 			}
 		}
+		p2->setNada(false);
+		p2->setColor(false);
+		casi2->setPieza(p2);
+		this->matriz[0][0]=casi2;
+		p2->setNada(false);
+		p2->setColor(true);
+		casi2->setPieza(p2);
+		this->matriz[0][1]=casi2;
+		/*
 		p->setNada(false);
 		p->setColor(false);
 		casi->setPieza(p);
@@ -52,6 +62,8 @@ void Damas::llenar(int filas,int columnas,Casillas* c){
 	    this->matriz[2][3]=new Casillas(p);
 	    this->matriz[2][5]=new Casillas(p);
 	    this->matriz[2][7]=new Casillas(p);
+	    */
+	   
 		
 		
 	
