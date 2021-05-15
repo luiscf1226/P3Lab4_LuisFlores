@@ -21,7 +21,8 @@ class Damas{
 		void print2(int,int);
 		bool ganador();
 		bool valido();
-		void capturar();
+		bool capturar(int,int);
+		bool capturar2(int,int);
 		void jugar();
 
 	

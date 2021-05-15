@@ -34,7 +34,7 @@ void Pieza::setReina(bool r){
 }
 string Pieza::toString(){
 	if(nada==true){
-		return"-";
+		return" ";
 	}
 
 			if(color==false&&nada==false){
