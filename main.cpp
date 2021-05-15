@@ -12,9 +12,9 @@ int main(int argc, char** argv) {
 	d->llenar(8,8,casi);
 	d->print2(8,8);
 	int game=0;
-	while(game==0){
-			d->valido();
-	}
+	d->jugar();
+	//	d->valido();
+	
 
 	
 	return 0;

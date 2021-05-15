@@ -8,6 +8,7 @@ using namespace std;
 Damas::Damas(){
 	
 }
+
 Damas::Damas(bool gg,bool cc){
 	this->gano=gg;
 	this->puede=cc;
@@ -28,8 +29,8 @@ void Damas::llenar(int filas,int columnas,Casillas* c){
 		Casillas *casi=new Casillas();
 		
 		Pieza *p=new Pieza();
-		//p->setNada(true);
-		p->setColor(false);
+		p->setNada(true);
+		//p->setColor(false);
 		casi->setPieza(p);
 		
 		
@@ -52,6 +53,7 @@ void Damas::llenar(int filas,int columnas,Casillas* c){
 		}
 	//this->matriz[i][j]=new Casillas(new Pieza(false,false,true));
 	//
+	
 	this->matriz[3][0]=new Casillas(new Pieza(false,false,true));
     this->matriz[3][1]=new Casillas(new Pieza(false,false,true));
     this->matriz[3][2]=new Casillas(new Pieza(false,false,true));
@@ -101,6 +103,23 @@ void Damas::llenar(int filas,int columnas,Casillas* c){
 		
 	
 }
+void Damas::free(int filas,int columnas){
+	if(matriz!=NULL){
+        for(int i=0;i<filas;i++){
+            for (int j=0;j<columnas;j++){
+                delete matriz[i][j];
+            }
+        }
+        for(int i=0;i<filas;i++){
+            if(matriz[i]!=NULL){
+                delete []matriz[i];
+                matriz[i]=NULL;//null
+            }
+        }
+        delete[]matriz;
+        matriz=NULL;
+    }
+}
 void Damas::print(int filas,int columnas){
 
 }
@@ -117,7 +136,12 @@ bool Damas::valido(){
 	int fila,columna;
 	int fila1,columna1;
 	bool si=false;
+	int n1=12,n2=12;
+	
 	cout<<"JUGADOR 1 SERA X "<<endl<<"JUGADOR 2 SERA 0"<<endl;
+	cout<<"JUGADOR 1 TIENE : "<<n1<<" FICHAS.."<<endl;
+	cout<<"JUGADOR 2 TIENE : "<<n2<<" FICHAS.."<<endl;
+	cout<<"PIERDE EL QUE LLEGUE A 0: "<<endl;
 	//return si;
 	int cc=1;
 	while(cc==1){
@@ -128,7 +152,7 @@ bool Damas::valido(){
 		cin>>columna;
 		Pieza *p;
 		bool comido;
-		
+
 		if(matriz[fila][columna]->getPieza()->getColor()==false){
 			cout<<"si hay ficha: "<<endl;
 			cout<<"se movera en diagonal"<<endl;
@@ -138,11 +162,12 @@ bool Damas::valido(){
 			cin>>columna1;
 			if(fila1+1&&columna1-1||fila1+1&&columna1+1){
 				cout<<"si es diagonal: "<<endl;
-				comido=capturar(fila1,columna1);
+				comido=capturar(fila1,columna1,n2);
 				if(comido==true){
 					cout<<"voy a saltar"<<endl;
-					matriz[fila1][columna1]=matriz[fila][columna];
 					matriz[fila1+1][columna1-1]=matriz[fila][columna];
+					matriz[fila][columna]=new Casillas(new Pieza(false,false,true));
+					
 					
 				}
 				matriz[fila1][columna1]=matriz[fila][columna];
@@ -164,6 +189,7 @@ bool Damas::valido(){
 		
 		
 	}
+	ganador(n1,n2);
 	cc=2;
 	while(cc==2){
 		cout<<"Jugador 2 escoja cual ficha: "<<endl;
@@ -183,7 +209,7 @@ bool Damas::valido(){
 			if(fila1-1&&columna1+1||fila1-1&&columna1-1){
 				cout<<"si es diagonal: "<<endl;
 				
-				//capturar(fila1,columna1);
+				capturar2(fila1,columna1,n2);
 				matriz[fila1][columna1]=matriz[fila][columna];
 				matriz[fila][columna]=new Casillas(new Pieza(false,false,true));
 				print2(8,8);
@@ -203,36 +229,73 @@ bool Damas::valido(){
 		
 		
 	}
+		ganador(n1,n2);
 	return si;
 }
-bool Damas::capturar(int filas,int columnas){
+bool Damas::capturar(int filas,int columnas,int n1){
 	bool capt=false;
 	while (capt==false){
 		if(matriz[filas][columnas]->getPieza()->getColor()==true&&matriz[filas+1][columnas-1]->getPieza()->getNada()==true){
 			cout<<"COMO"<<endl;
-			
+			n1--;
 			capt=true;
 			return capt;
-		}else{
+		}
+		if(matriz[filas+1][columnas+1]->getPieza()->getColor()==true&&matriz[filas+1][columnas+1]->getPieza()->getNada()==true){
+			cout<<"COMO"<<endl;
+			n1--;
+			capt=true;
+			return capt;
+		}
+		else{
 			cout<<"no comi"<<endl;
 			return capt;
 		}
 	}
 }
-bool Damas::capturar2(int filas,int columnas){
+bool Damas::capturar2(int filas,int columnas,int n2){
 	bool capt=false;
 	while (capt==false){
-		if(matriz[filas][columnas]->getPieza()->getColor()==false&&matriz[filas+1][columnas-1]->getPieza()->getNada()==true){
+		if(matriz[filas][columnas]->getPieza()->getColor()==false&&matriz[filas-1][columnas+1]->getPieza()->getNada()==true){
 			cout<<"COMO"<<endl;
+			n2--;
 			
 			capt=true;
 			return capt;
-		}else{
+		}
+		if(matriz[filas][columnas]->getPieza()->getColor()==false&&matriz[filas-1][columnas-1]->getPieza()->getNada()==true){
+				cout<<"COMO"<<endl;
+			n2--;
+			
+			capt=true;
+			return capt;
+		}
+		else{
 			cout<<"no comi"<<endl;
 			return capt;
 		}
 	}
 
+}
+bool Damas::ganador(int n1,int n2){
+	bool red;
+	if(n1==0){
+		red=true;
+		return red;
+	}
+	if(n2==0){
+		red=false;
+		return red;
+	}
+}
+void Damas::jugar(){
+	int c=1;
+	
+	while(c!=0){
+		valido();
+		
+	}
+	free(8,8);
 }
 		
 	

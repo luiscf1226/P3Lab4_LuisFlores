@@ -16,13 +16,14 @@ class Damas{
 		Damas(bool,bool);
 		Casillas*** crear(int,int);
 		~Damas();
+		void free(int,int);
 		void llenar(int,int,Casillas*);
 		void print(int,int);
 		void print2(int,int);
-		bool ganador();
+		bool ganador(int,int);
 		bool valido();
-		bool capturar(int,int);
-		bool capturar2(int,int);
+		bool capturar(int,int,int);
+		bool capturar2(int,int,int);
 		void jugar();
 
 	
